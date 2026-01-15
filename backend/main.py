@@ -131,7 +131,7 @@ async def general_exception_handler(request: Request, exc: Exception):
 async def root():
     """Root endpoint."""
     return {
-        "message": "Claude KB API",
+        "message": "Agentic Search Ops API",
         "version": "0.1.0"
     }
 

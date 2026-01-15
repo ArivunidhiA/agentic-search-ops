@@ -1,7 +1,7 @@
 """Database connection and session management."""
 
 import logging
-from contextlib import asynccontextmanager
+from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base
 
@@ -48,8 +48,7 @@ async def close_db() -> None:
     logger.info("Database connections closed")
 
 
-@asynccontextmanager
-async def get_db() -> AsyncSession:
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
     """
     Dependency for FastAPI to get database session.
     

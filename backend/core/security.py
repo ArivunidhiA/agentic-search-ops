@@ -150,7 +150,8 @@ def sanitize_search_query(query: str) -> str:
     sanitized = query.strip()
     
     # Remove SQL injection patterns (semicolons, comments, etc.)
-    sanitized = re.sub(r'[;--]', '', sanitized)
+    # Escape dash in character class or place it at the end
+    sanitized = re.sub(r'[;-]', '', sanitized)
     
     # Limit wildcard usage (max 3 consecutive wildcards)
     sanitized = re.sub(r'\*{4,}', '***', sanitized)

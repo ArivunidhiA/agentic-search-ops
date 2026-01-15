@@ -17,7 +17,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
         <Menu className="w-6 h-6" />
       </button>
       <div className="flex-1 flex items-center justify-between ml-4 lg:ml-0">
-        <h1 className="text-xl font-semibold text-gray-900">Claude KB Operator Console</h1>
+        <h1 className="text-xl font-semibold text-gray-900">Agentic Search Ops</h1>
         <div className="flex items-center gap-4">
           <span className="text-sm text-gray-600">v0.1.0</span>
         </div>

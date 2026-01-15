@@ -2,6 +2,7 @@
 
 import logging
 from typing import List
+from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
@@ -12,7 +13,6 @@ from models.document import Document
 from models.chunk import Chunk
 from models.job import Job, JobStatus, JobEvent
 from core.config import settings
-from core.storage import storage_service
 
 logger = logging.getLogger(__name__)
 
@@ -89,22 +89,27 @@ async def get_metrics(
             storage_used = size_result.scalar() or 0
         
         # Get recent activity (last 10 events)
-        recent_events_result = await db.execute(
-            select(JobEvent)
-            .order_by(JobEvent.timestamp.desc())
-            .limit(10)
-        )
-        recent_events = recent_events_result.scalars().all()
-        
-        recent_activity = [
-            {
-                "id": event.id,
-                "job_id": event.job_id,
-                "event_type": event.event_type.value,
-                "timestamp": event.timestamp.isoformat()
-            }
-            for event in recent_events
-        ]
+        recent_activity = []
+        try:
+            recent_events_result = await db.execute(
+                select(JobEvent)
+                .order_by(JobEvent.timestamp.desc())
+                .limit(10)
+            )
+            recent_events = recent_events_result.scalars().all()
+            
+            recent_activity = [
+                {
+                    "id": str(event.id),
+                    "job_id": str(event.job_id),
+                    "event_type": event.event_type.value if hasattr(event.event_type, 'value') else str(event.event_type),
+                    "timestamp": event.timestamp.isoformat() if event.timestamp else datetime.utcnow().isoformat()
+                }
+                for event in recent_events
+            ]
+        except Exception as e:
+            logger.warning(f"Failed to fetch recent events: {str(e)}")
+            recent_activity = []
         
         # Determine system health
         # Healthy: no failed jobs in recent activity, storage accessible

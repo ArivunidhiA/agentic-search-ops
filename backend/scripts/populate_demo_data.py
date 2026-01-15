@@ -131,6 +131,320 @@ Benefits of cloud computing:
 
 Cloud security involves shared responsibility models, encryption, identity and access management, and compliance with regulations like GDPR and HIPAA.""",
         "file_size": 3072
+    },
+    {
+        "filename": "docker_containers.txt",
+        "content": """Docker and Containerization
+
+Docker is a platform for developing, shipping, and running applications using containerization. Containers package an application with all its dependencies, ensuring it runs consistently across different environments.
+
+Key concepts:
+- Images: Read-only templates for creating containers
+- Containers: Running instances of images
+- Dockerfile: Instructions for building images
+- Docker Compose: Tool for defining multi-container applications
+
+Benefits of containerization:
+- Consistency across development, testing, and production
+- Isolation of applications and dependencies
+- Resource efficiency compared to virtual machines
+- Easy scaling and deployment
+- Version control for application environments
+
+Docker uses Linux kernel features like namespaces and cgroups to provide isolation. Popular container orchestration platforms include Kubernetes, Docker Swarm, and Amazon ECS.
+
+Best practices include:
+- Using multi-stage builds to reduce image size
+- Not running containers as root
+- Using specific version tags instead of 'latest'
+- Implementing health checks
+- Optimizing layer caching""",
+        "file_size": 2048
+    },
+    {
+        "filename": "api_design.txt",
+        "content": """RESTful API Design Principles
+
+REST (Representational State Transfer) is an architectural style for designing networked applications. RESTful APIs use HTTP methods to perform operations on resources.
+
+Core principles:
+1. Stateless: Each request contains all information needed
+2. Client-Server: Separation of concerns
+3. Uniform Interface: Consistent resource identification
+4. Cacheable: Responses can be cached
+5. Layered System: Architecture can have multiple layers
+
+HTTP methods:
+- GET: Retrieve resources
+- POST: Create new resources
+- PUT: Update entire resources
+- PATCH: Partial updates
+- DELETE: Remove resources
+
+Status codes:
+- 200: Success
+- 201: Created
+- 400: Bad Request
+- 401: Unauthorized
+- 404: Not Found
+- 500: Server Error
+
+API versioning strategies include URL versioning (/api/v1/), header versioning, and query parameter versioning. Authentication methods include API keys, OAuth 2.0, and JWT tokens.
+
+Best practices:
+- Use nouns for resource names
+- Implement pagination for large datasets
+- Provide clear error messages
+- Document APIs thoroughly
+- Implement rate limiting
+- Use HTTPS for security""",
+        "file_size": 2304
+    },
+    {
+        "filename": "git_version_control.txt",
+        "content": """Git Version Control System
+
+Git is a distributed version control system designed to handle everything from small to very large projects with speed and efficiency. Created by Linus Torvalds in 2005, Git has become the standard for version control.
+
+Key concepts:
+- Repository: Storage location for project files and history
+- Commit: Snapshot of changes at a point in time
+- Branch: Parallel version of the codebase
+- Merge: Combining changes from different branches
+- Remote: Reference to another repository
+
+Common Git commands:
+- git init: Initialize a new repository
+- git add: Stage changes for commit
+- git commit: Save changes to repository
+- git push: Upload changes to remote
+- git pull: Download and merge changes
+- git branch: Manage branches
+- git merge: Combine branches
+
+Workflow strategies:
+- Feature branches for new functionality
+- Pull requests for code review
+- Semantic versioning for releases
+- Git flow or GitHub flow methodologies
+
+Best practices:
+- Write clear commit messages
+- Commit frequently with logical units
+- Use branches for features and fixes
+- Keep main branch stable
+- Review code before merging
+- Use .gitignore for unnecessary files""",
+        "file_size": 2560
+    },
+    {
+        "filename": "security_best_practices.txt",
+        "content": """Cybersecurity Best Practices
+
+Security is crucial in modern software development. Protecting applications, data, and users requires a comprehensive approach covering multiple layers.
+
+Authentication and Authorization:
+- Implement strong password policies
+- Use multi-factor authentication (MFA)
+- Implement role-based access control (RBAC)
+- Use OAuth 2.0 or JWT for API authentication
+- Never store passwords in plain text
+
+Data Protection:
+- Encrypt sensitive data at rest and in transit
+- Use HTTPS/TLS for all communications
+- Implement proper input validation
+- Sanitize user inputs to prevent injection attacks
+- Use parameterized queries for databases
+
+Common vulnerabilities to prevent:
+- SQL Injection: Use prepared statements
+- Cross-Site Scripting (XSS): Sanitize outputs
+- Cross-Site Request Forgery (CSRF): Use tokens
+- Insecure Direct Object References: Validate access
+- Security Misconfiguration: Keep systems updated
+
+Security practices:
+- Regular security audits and penetration testing
+- Keep dependencies updated
+- Implement logging and monitoring
+- Use security headers (CSP, HSTS, X-Frame-Options)
+- Follow principle of least privilege
+- Implement rate limiting and DDoS protection""",
+        "file_size": 2816
+    },
+    {
+        "filename": "microservices_architecture.txt",
+        "content": """Microservices Architecture
+
+Microservices architecture is an approach to building applications as a collection of small, independent services that communicate over well-defined APIs. Each service is responsible for a specific business function.
+
+Key characteristics:
+- Service independence: Services can be developed and deployed independently
+- Technology diversity: Each service can use different technologies
+- Fault isolation: Failure in one service doesn't crash the entire system
+- Scalability: Services can scale independently based on demand
+- Team autonomy: Small teams can own entire services
+
+Benefits:
+- Faster development and deployment
+- Better fault tolerance
+- Technology flexibility
+- Easier to understand and maintain individual services
+- Independent scaling
+
+Challenges:
+- Service communication complexity
+- Data consistency across services
+- Distributed system debugging
+- Network latency
+- Service discovery and configuration management
+
+Common patterns:
+- API Gateway: Single entry point for clients
+- Service Mesh: Infrastructure layer for service communication
+- Event-driven architecture: Services communicate via events
+- Circuit Breaker: Prevent cascading failures
+- Saga pattern: Manage distributed transactions
+
+Tools and technologies:
+- Kubernetes for orchestration
+- Docker for containerization
+- Service mesh (Istio, Linkerd)
+- Message queues (RabbitMQ, Kafka)
+- API gateways (Kong, AWS API Gateway)""",
+        "file_size": 3328
+    },
+    {
+        "filename": "testing_strategies.txt",
+        "content": """Software Testing Strategies
+
+Testing is a critical part of software development that ensures quality, reliability, and functionality of applications. A comprehensive testing strategy includes multiple levels and types of tests.
+
+Testing levels:
+1. Unit Testing: Test individual components in isolation
+2. Integration Testing: Test interactions between components
+3. System Testing: Test complete system functionality
+4. Acceptance Testing: Validate against business requirements
+
+Testing types:
+- Functional Testing: Verify features work as specified
+- Performance Testing: Check speed, responsiveness, stability
+- Security Testing: Identify vulnerabilities
+- Usability Testing: Evaluate user experience
+- Regression Testing: Ensure changes don't break existing features
+
+Test-driven development (TDD):
+- Write tests before implementation
+- Red-Green-Refactor cycle
+- Ensures code meets requirements
+- Improves code design
+
+Testing best practices:
+- Write clear, descriptive test names
+- Follow AAA pattern (Arrange, Act, Assert)
+- Keep tests independent and isolated
+- Test edge cases and error conditions
+- Maintain high code coverage
+- Automate testing in CI/CD pipelines
+
+Popular testing frameworks:
+- Jest, Mocha for JavaScript
+- pytest for Python
+- JUnit for Java
+- RSpec for Ruby
+- xUnit for .NET
+
+Continuous testing in CI/CD ensures code quality at every stage of development, catching issues early and reducing technical debt.""",
+        "file_size": 2560
+    },
+    {
+        "filename": "data_structures.txt",
+        "content": """Data Structures and Algorithms
+
+Data structures are ways of organizing and storing data in computer memory. Understanding data structures is fundamental to writing efficient algorithms and solving complex problems.
+
+Common data structures:
+- Arrays: Contiguous memory locations for elements
+- Linked Lists: Nodes connected by pointers
+- Stacks: LIFO (Last In First Out) structure
+- Queues: FIFO (First In First Out) structure
+- Trees: Hierarchical data organization
+- Graphs: Nodes connected by edges
+- Hash Tables: Key-value pairs with fast lookup
+
+Algorithm complexity:
+- Time Complexity: How execution time grows with input size
+- Space Complexity: How memory usage grows with input size
+- Big O notation: Describes worst-case performance
+- Common complexities: O(1), O(log n), O(n), O(n log n), O(n²)
+
+Sorting algorithms:
+- Quick Sort: Divide and conquer, average O(n log n)
+- Merge Sort: Divide and conquer, stable, O(n log n)
+- Bubble Sort: Simple but slow, O(n²)
+- Heap Sort: Uses heap data structure, O(n log n)
+
+Searching algorithms:
+- Binary Search: O(log n) for sorted arrays
+- Linear Search: O(n) for unsorted arrays
+- Hash-based search: O(1) average case
+
+Choosing the right data structure depends on:
+- Access patterns (read vs write frequency)
+- Data relationships
+- Memory constraints
+- Performance requirements
+- Implementation complexity""",
+        "file_size": 2304
+    },
+    {
+        "filename": "devops_practices.txt",
+        "content": """DevOps Practices and CI/CD
+
+DevOps is a set of practices that combines software development (Dev) and IT operations (Ops) to shorten the development lifecycle and provide continuous delivery with high quality.
+
+Core principles:
+- Collaboration between development and operations
+- Automation of processes
+- Continuous integration and deployment
+- Infrastructure as code
+- Monitoring and logging
+
+CI/CD Pipeline:
+- Continuous Integration: Automatically test code changes
+- Continuous Deployment: Automatically deploy to production
+- Continuous Delivery: Ready for deployment at any time
+
+Key practices:
+- Version control for all code and configurations
+- Automated testing at multiple levels
+- Infrastructure as code (Terraform, CloudFormation)
+- Configuration management (Ansible, Puppet, Chef)
+- Containerization and orchestration
+- Monitoring and alerting
+- Log aggregation and analysis
+
+Benefits:
+- Faster time to market
+- Reduced deployment failures
+- Improved collaboration
+- Better quality and reliability
+- Increased efficiency
+
+Tools:
+- CI/CD: Jenkins, GitLab CI, GitHub Actions, CircleCI
+- Configuration: Ansible, Terraform, Kubernetes
+- Monitoring: Prometheus, Grafana, ELK Stack
+- Container: Docker, Kubernetes, Docker Swarm
+
+DevOps culture emphasizes:
+- Shared responsibility
+- Fast feedback loops
+- Continuous improvement
+- Learning from failures
+- Automation over manual processes""",
+        "file_size": 2816
     }
 ]
 

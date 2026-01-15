@@ -56,7 +56,12 @@ app.add_middleware(SlowAPIMiddleware)
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.FRONTEND_URL],
+    allow_origins=[
+        settings.FRONTEND_URL,
+        "https://d7havmxx7jx2t.cloudfront.net",
+        "http://localhost:5174",
+        "http://localhost:5173",
+    ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],

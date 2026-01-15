@@ -3,7 +3,7 @@
 import { JobEvent, JobEventType } from '../../types';
 import { formatDate } from '../../utils/formatters';
 import { Clock, CheckCircle, XCircle, AlertCircle, RotateCcw, Pause, Play } from 'lucide-react';
-import clsx from 'clsx';
+import { Card } from '../ui/card';
 
 interface JobEventLogProps {
   events: JobEvent[];
@@ -14,7 +14,7 @@ const getEventIcon = (eventType: JobEventType) => {
     case JobEventType.START:
       return <Play className="w-4 h-4 text-blue-600" />;
     case JobEventType.CHECKPOINT:
-      return <Clock className="w-4 h-4 text-gray-600" />;
+      return <Clock className="w-4 h-4 text-yellow-600" />;
     case JobEventType.COMPLETE:
       return <CheckCircle className="w-4 h-4 text-green-600" />;
     case JobEventType.ERROR:
@@ -32,7 +32,7 @@ const getEventIcon = (eventType: JobEventType) => {
 
 export const JobEventLog = ({ events }: JobEventLogProps) => {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <Card showBorderTrail>
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Event Log</h3>
       
       {events.length === 0 ? (
@@ -66,6 +66,6 @@ export const JobEventLog = ({ events }: JobEventLogProps) => {
           ))}
         </div>
       )}
-    </div>
+    </Card>
   );
 };

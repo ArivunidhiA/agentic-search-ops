@@ -1,19 +1,20 @@
 /** Dashboard page */
 
 import { Link } from 'react-router-dom';
-import { Plus, Search, Briefcase } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import { SystemHealth } from '../components/dashboards/SystemHealth';
 import { useJobs } from '../hooks/useJobs';
 import { useDocuments } from '../hooks/useDocuments';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 import { JobStatus } from '../types';
+import { ShimmerButton } from '../components/ui/shimmer-button';
+import { Card } from '../components/ui/card';
 
 export const Dashboard = () => {
   const { data: jobsData, isLoading: jobsLoading } = useJobs(0, 10);
   const { data: documentsData, isLoading: documentsLoading } = useDocuments(0, 5);
 
   const activeJobs = jobsData?.jobs?.filter((job) => job.status === JobStatus.RUNNING) || [];
-  const recentJobs = jobsData?.jobs?.slice(0, 5) || [];
   const recentDocuments = documentsData?.documents?.slice(0, 5) || [];
 
   return (
@@ -21,19 +22,20 @@ export const Dashboard = () => {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
         <div className="flex gap-3">
-          <Link
-            to="/jobs"
-            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors"
-          >
-            <Plus className="w-5 h-5" />
-            New Job
+          <Link to="/jobs">
+            <ShimmerButton className="flex items-center gap-2">
+              <Plus className="w-5 h-5" />
+              New Job
+            </ShimmerButton>
           </Link>
-          <Link
-            to="/search"
-            className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
-          >
-            <Search className="w-5 h-5" />
-            Search
+          <Link to="/search">
+            <ShimmerButton
+              variant="secondary"
+              className="flex items-center gap-2"
+            >
+              <Search className="w-5 h-5" />
+              Search
+            </ShimmerButton>
           </Link>
         </div>
       </div>
@@ -41,7 +43,7 @@ export const Dashboard = () => {
       <SystemHealth />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg shadow p-6">
+        <Card showBorderTrail>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Active Jobs</h2>
             <Link
@@ -71,9 +73,9 @@ export const Dashboard = () => {
               ))}
             </div>
           )}
-        </div>
+        </Card>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <Card showBorderTrail>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Recent Documents</h2>
             <Link
@@ -105,7 +107,7 @@ export const Dashboard = () => {
               ))}
             </div>
           )}
-        </div>
+        </Card>
       </div>
     </div>
   );

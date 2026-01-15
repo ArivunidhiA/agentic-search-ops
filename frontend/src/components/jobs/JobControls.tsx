@@ -4,6 +4,8 @@ import { Pause, Play, Square } from 'lucide-react';
 import { useControlJob } from '../../hooks/useJobs';
 import { JobStatus } from '../../types';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { Card } from '../ui/card';
+import { ShimmerButton } from '../ui/shimmer-button';
 
 interface JobControlsProps {
   jobId: string;
@@ -44,53 +46,53 @@ export const JobControls = ({ jobId, status }: JobControlsProps) => {
   const isLoading = controlMutation.isLoading;
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <Card showBorderTrail>
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Job Controls</h3>
       
       <div className="flex gap-3">
         {status === JobStatus.RUNNING && (
-          <button
+          <ShimmerButton
             onClick={handlePause}
             disabled={isLoading}
-            className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            variant="secondary"
           >
             {isLoading ? (
               <LoadingSpinner size="sm" />
             ) : (
-              <Pause className="w-5 h-5" />
+              <Pause className="w-5 h-5 mr-2" />
             )}
             Pause
-          </button>
+          </ShimmerButton>
         )}
         
         {status === JobStatus.PAUSED && (
-          <button
+          <ShimmerButton
             onClick={handleResume}
             disabled={isLoading}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            variant="primary"
           >
             {isLoading ? (
               <LoadingSpinner size="sm" />
             ) : (
-              <Play className="w-5 h-5" />
+              <Play className="w-5 h-5 mr-2" />
             )}
             Resume
-          </button>
+          </ShimmerButton>
         )}
         
         {(status === JobStatus.RUNNING || status === JobStatus.PAUSED) && (
-          <button
+          <ShimmerButton
             onClick={handleStop}
             disabled={isLoading}
-            className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            variant="danger"
           >
             {isLoading ? (
               <LoadingSpinner size="sm" />
             ) : (
-              <Square className="w-5 h-5" />
+              <Square className="w-5 h-5 mr-2" />
             )}
             Stop
-          </button>
+          </ShimmerButton>
         )}
         
         {status === JobStatus.COMPLETED && (
@@ -101,6 +103,6 @@ export const JobControls = ({ jobId, status }: JobControlsProps) => {
           <p className="text-sm text-gray-500">Job failed. No actions available.</p>
         )}
       </div>
-    </div>
+    </Card>
   );
 };

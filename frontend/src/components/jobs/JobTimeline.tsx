@@ -1,8 +1,8 @@
 /** Job timeline component showing job progress visually */
 
 import { JobDetail, JobEvent, JobEventType } from '../../types';
-import { formatDate } from '../../utils/formatters';
 import clsx from 'clsx';
+import { Card } from '../ui/card';
 
 interface JobTimelineProps {
   job: JobDetail;
@@ -11,13 +11,14 @@ interface JobTimelineProps {
 
 const stepOrder = ['PLANNING', 'EXECUTING', 'VERIFYING', 'SYNTHESIZING'];
 
-export const JobTimeline = ({ job, events }: JobTimelineProps) => {
+export const JobTimeline = ({ events }: JobTimelineProps) => {
   // Extract step information from events
   const stepStatuses = stepOrder.map((step) => {
-    const stepEvents = events.filter((e) => 
-      e.event_data?.step_name?.toUpperCase().includes(step) ||
-      e.event_type === JobEventType.CHECKPOINT
-    );
+    const stepEvents = events.filter((e) => {
+      const stepName = e.event_data?.step_name as string | undefined;
+      return (stepName?.toUpperCase().includes(step)) ||
+        e.event_type === JobEventType.CHECKPOINT;
+    });
     const isComplete = stepEvents.some((e) => e.event_type === JobEventType.COMPLETE);
     const isActive = stepEvents.some((e) => 
       e.event_type === JobEventType.CHECKPOINT && 
@@ -27,7 +28,7 @@ export const JobTimeline = ({ job, events }: JobTimelineProps) => {
   });
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <Card showBorderTrail>
       <h3 className="text-lg font-semibold text-gray-900 mb-6">Timeline</h3>
       
       <div className="space-y-4">
@@ -40,7 +41,7 @@ export const JobTimeline = ({ job, events }: JobTimelineProps) => {
                   step.isComplete
                     ? 'bg-green-100 text-green-800'
                     : step.isActive
-                    ? 'bg-blue-100 text-blue-800'
+                    ? 'bg-yellow-100 text-yellow-800'
                     : 'bg-gray-100 text-gray-400'
                 )}
               >
@@ -66,6 +67,6 @@ export const JobTimeline = ({ job, events }: JobTimelineProps) => {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   );
 };

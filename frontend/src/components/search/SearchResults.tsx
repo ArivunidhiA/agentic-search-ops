@@ -2,8 +2,9 @@
 
 import { Link } from 'react-router-dom';
 import { SearchResult } from '../../types';
-import { formatFileSize, formatDate } from '../../utils/formatters';
+import { formatFileSize } from '../../utils/formatters';
 import { LoadingSpinner } from '../common/LoadingSpinner';
+import { Card } from '../ui/card';
 
 interface SearchResultsProps {
   results: SearchResult[];
@@ -22,27 +23,27 @@ export const SearchResults = ({ results, isLoading, query }: SearchResultsProps)
 
   if (results.length === 0) {
     return (
-      <div className="bg-white rounded-lg shadow p-8 text-center">
+      <Card className="text-center">
         <p className="text-gray-500">No results found for "{query}"</p>
-      </div>
+      </Card>
     );
   }
 
   return (
     <div className="space-y-4">
-      <div className="bg-white rounded-lg shadow p-4">
+      <Card>
         <p className="text-sm text-gray-600">
           Found {results.length} result{results.length !== 1 ? 's' : ''} for "{query}"
         </p>
-      </div>
+      </Card>
 
       {results.map((result) => (
-        <div key={result.chunk_id} className="bg-white rounded-lg shadow p-6">
+        <Card key={result.chunk_id} showBorderTrail>
           <div className="flex items-start justify-between mb-3">
             <div>
               <Link
                 to={`/documents/${result.document_id}`}
-                className="text-sm font-medium text-primary-600 hover:text-primary-800"
+                className="text-sm font-medium text-yellow-600 hover:text-yellow-800"
               >
                 {result.document_metadata.filename}
               </Link>
@@ -59,7 +60,7 @@ export const SearchResults = ({ results, isLoading, query }: SearchResultsProps)
             className="text-sm text-gray-700 mt-3 line-clamp-3"
             dangerouslySetInnerHTML={{ __html: result.highlighted_content }}
           />
-        </div>
+        </Card>
       ))}
     </div>
   );

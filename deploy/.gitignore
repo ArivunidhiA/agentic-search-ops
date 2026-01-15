@@ -1,0 +1,6 @@
+# Generated deployment info
+deployment_info.txt
+
+# SSH keys (should never be committed)
+*.pem
+*.key

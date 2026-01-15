@@ -1,5 +1,47 @@
+# Environment files (keep .env.example)
 .env
+.env.local
+.env.production
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+.venv/
+*.egg-info/
+
+# Node.js
 node_modules/
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+*.egg
+
+# Database
 *.db
 data/kb.db
-__pycache__/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Terraform (keep examples)
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/terraform.tfvars
+terraform/.terraform.lock.hcl
+
+# Logs
+*.log
+logs/
+
+# Generated files
+deploy/deployment_info.txt

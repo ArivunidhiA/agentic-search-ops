@@ -1,8 +1,9 @@
 /** Search bar component */
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Search as SearchIcon } from 'lucide-react';
 import { useDebounce } from '../../hooks/useDebounce';
+import { Card } from '../ui/card';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -32,19 +33,21 @@ export const SearchBar = ({ onSearch, placeholder = 'Search documents...' }: Sea
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <SearchIcon className="h-5 w-5 text-gray-400" />
+    <Card showBorderTrail noPadding>
+      <form onSubmit={handleSubmit} className="w-full">
+        <div className="relative">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <SearchIcon className="h-5 w-5 text-yellow-500" />
+          </div>
+          <input
+            type="text"
+            value={query}
+            onChange={handleChange}
+            placeholder={placeholder}
+            className="block w-full pl-12 pr-4 py-3 border-0 rounded-lg leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-inset"
+          />
         </div>
-        <input
-          type="text"
-          value={query}
-          onChange={handleChange}
-          placeholder={placeholder}
-          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-        />
-      </div>
-    </form>
+      </form>
+    </Card>
   );
 };

@@ -6,6 +6,8 @@ import { useDocument } from '../../hooks/useDocuments';
 import { StatusBadge } from '../common/StatusBadge';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { formatFileSize, formatDate } from '../../utils/formatters';
+import { ShimmerButton } from '../ui/shimmer-button';
+import { Card } from '../ui/card';
 
 export const DocumentDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,9 +23,9 @@ export const DocumentDetail = () => {
 
   if (error || !document) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
+      <Card className="bg-red-50 border border-red-200 text-red-600">
         Failed to load document. Please try again.
-      </div>
+      </Card>
     );
   }
 
@@ -40,7 +42,7 @@ export const DocumentDetail = () => {
         <h1 className="text-2xl font-semibold text-gray-900">{document.filename}</h1>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-6">
+      <Card showBorderTrail>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h3 className="text-sm font-medium text-gray-500 mb-1">Status</h3>
@@ -68,10 +70,11 @@ export const DocumentDetail = () => {
                 href={document.download_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors"
               >
-                <Download className="w-5 h-5" />
-                Download
+                <ShimmerButton className="inline-flex items-center gap-2">
+                  <Download className="w-5 h-5" />
+                  Download
+                </ShimmerButton>
               </a>
             </div>
           )}
@@ -85,7 +88,7 @@ export const DocumentDetail = () => {
             </pre>
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 };

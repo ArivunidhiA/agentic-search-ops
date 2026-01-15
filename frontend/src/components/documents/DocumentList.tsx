@@ -8,6 +8,8 @@ import { StatusBadge } from '../common/StatusBadge';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { formatFileSize, formatDate } from '../../utils/formatters';
 import { Document } from '../../types';
+import { ShimmerButton } from '../ui/shimmer-button';
+import { Card } from '../ui/card';
 
 export const DocumentList = () => {
   const [skip, setSkip] = useState(0);
@@ -35,9 +37,9 @@ export const DocumentList = () => {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
+      <Card className="bg-red-50 border border-red-200 text-red-600">
         Failed to load documents. Please try again.
-      </div>
+      </Card>
     );
   }
 
@@ -45,7 +47,7 @@ export const DocumentList = () => {
   const total = data?.total || 0;
 
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden">
+    <Card showBorderTrail noPadding className="overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-200">
         <h2 className="text-lg font-semibold text-gray-900">Documents</h2>
         <p className="text-sm text-gray-600 mt-1">Total: {total}</p>
@@ -97,7 +99,7 @@ export const DocumentList = () => {
                       <div className="flex items-center justify-end gap-2">
                         <Link
                           to={`/documents/${doc.id}`}
-                          className="p-2 text-primary-600 hover:text-primary-900 transition-colors"
+                          className="p-2 text-yellow-600 hover:text-yellow-800 transition-colors"
                           aria-label="View document"
                         >
                           <Eye className="w-5 h-5" />
@@ -128,27 +130,27 @@ export const DocumentList = () => {
 
           {total > limit && (
             <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
-              <button
+              <ShimmerButton
                 onClick={() => setSkip(Math.max(0, skip - limit))}
                 disabled={skip === 0}
-                className="px-4 py-2 text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                variant="secondary"
               >
                 Previous
-              </button>
+              </ShimmerButton>
               <span className="text-sm text-gray-600">
                 Showing {skip + 1} - {Math.min(skip + limit, total)} of {total}
               </span>
-              <button
+              <ShimmerButton
                 onClick={() => setSkip(skip + limit)}
                 disabled={skip + limit >= total}
-                className="px-4 py-2 text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                variant="secondary"
               >
                 Next
-              </button>
+              </ShimmerButton>
             </div>
           )}
         </>
       )}
-    </div>
+    </Card>
   );
 };

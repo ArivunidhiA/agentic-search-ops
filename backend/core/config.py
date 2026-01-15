@@ -53,6 +53,20 @@ class Settings(BaseSettings):
     CHUNK_SIZE: int = 1000
     CHUNK_OVERLAP: int = 200
     
+    # Document Processing
+    ENABLE_PDF_EXTRACTION: bool = True
+    ENABLE_DOCX_EXTRACTION: bool = True
+    PDF_MAX_PAGES: int = 100
+    PDF_TIMEOUT_SECONDS: int = 60
+    DOCX_TIMEOUT_SECONDS: int = 30
+    
+    # Vector Embeddings (optional feature)
+    ENABLE_EMBEDDINGS: bool = False
+    EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"  # Local model, no API cost
+    EMBEDDING_BATCH_SIZE: int = 10
+    EMBEDDING_SIMILARITY_THRESHOLD: float = 0.7
+    EMBEDDING_DIMENSION: int = 384  # Dimension for all-MiniLM-L6-v2
+    
     class Config:
         env_file = ".env"
         case_sensitive = False

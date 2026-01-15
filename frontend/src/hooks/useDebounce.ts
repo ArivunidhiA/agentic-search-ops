@@ -1,9 +1,9 @@
 /** Custom hook for debouncing values */
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 export const useDebounce = <T,>(callback: (value: T) => void, delay: number) => {
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   return useCallback(
     (value: T) => {

@@ -5,6 +5,8 @@ import { Upload, X, AlertCircle } from 'lucide-react';
 import { useUploadDocument } from '../../hooks/useDocuments';
 import { LoadingSpinner } from '../common/LoadingSpinner';
 import { validateFilename, validateFileSize } from '../../utils/validators';
+import { Card } from '../ui/card';
+import { ShimmerButton } from '../ui/shimmer-button';
 
 interface DocumentUploadProps {
   onSuccess?: () => void;
@@ -66,7 +68,7 @@ export const DocumentUpload = ({ onSuccess }: DocumentUploadProps) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <Card showBorderTrail>
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Upload Document</h3>
       
       <div className="space-y-4">
@@ -83,13 +85,14 @@ export const DocumentUpload = ({ onSuccess }: DocumentUploadProps) => {
               id="file-upload"
               accept=".pdf,.txt,.md,.docx"
             />
-            <label
-              htmlFor="file-upload"
-              className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 cursor-pointer transition-colors"
+            <ShimmerButton
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              variant="primary"
             >
-              <Upload className="w-5 h-5" />
+              <Upload className="w-5 h-5 mr-2" />
               Choose File
-            </label>
+            </ShimmerButton>
             {file && (
               <div className="flex items-center gap-2 text-sm text-gray-700">
                 <span>{file.name}</span>
@@ -112,21 +115,22 @@ export const DocumentUpload = ({ onSuccess }: DocumentUploadProps) => {
           </div>
         )}
 
-        <button
+        <ShimmerButton
           onClick={handleUpload}
           disabled={!file || uploadMutation.isLoading}
-          className="w-full px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+          variant="primary"
+          className="w-full"
         >
           {uploadMutation.isLoading ? (
             <>
               <LoadingSpinner size="sm" />
-              Uploading...
+              <span className="ml-2">Uploading...</span>
             </>
           ) : (
             'Upload Document'
           )}
-        </button>
+        </ShimmerButton>
       </div>
-    </div>
+    </Card>
   );
 };

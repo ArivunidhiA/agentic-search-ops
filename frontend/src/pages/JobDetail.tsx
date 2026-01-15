@@ -9,11 +9,12 @@ import { JobControls } from '../components/jobs/JobControls';
 import { OperatorChat } from '../components/operator/OperatorChat';
 import { AgentBehavior } from '../components/dashboards/AgentBehavior';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { Card } from '../components/ui/card';
 
 export const JobDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { data: job, isLoading: jobLoading } = useJob(id || '');
-  const { data: eventsData, isLoading: eventsLoading } = useJobEvents(id || '', 0, 100);
+  const { data: eventsData } = useJobEvents(id || '', 0, 100);
 
   if (jobLoading) {
     return (
@@ -25,9 +26,9 @@ export const JobDetail = () => {
 
   if (!job) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
+      <Card className="bg-red-50 border border-red-200 text-red-600">
         Job not found.
-      </div>
+      </Card>
     );
   }
 

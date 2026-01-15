@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, AlertCircle } from 'lucide-react';
 import { escapeHtml } from '../../utils/formatters';
+import { ShimmerButton } from '../ui/shimmer-button';
+import { Card } from '../ui/card';
 
 interface ChatMessage {
   type: 'command' | 'response' | 'error';
@@ -27,7 +29,7 @@ interface OperatorChatProps {
   onCommand?: (command: string) => Promise<string>;
 }
 
-export const OperatorChat = ({ jobId, onCommand }: OperatorChatProps) => {
+export const OperatorChat = ({ onCommand }: OperatorChatProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -132,7 +134,7 @@ export const OperatorChat = ({ jobId, onCommand }: OperatorChatProps) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow flex flex-col h-[600px]">
+    <Card showBorderTrail noPadding className="flex flex-col h-[600px]">
       <div className="px-6 py-4 border-b border-gray-200">
         <h3 className="text-lg font-semibold text-gray-900">Operator Chat</h3>
         <p className="text-xs text-gray-500 mt-1">
@@ -156,7 +158,7 @@ export const OperatorChat = ({ jobId, onCommand }: OperatorChatProps) => {
             <div
               className={`max-w-[80%] rounded-lg px-4 py-2 ${
                 msg.type === 'command'
-                  ? 'bg-primary-600 text-white'
+                  ? 'bg-yellow-500 text-white'
                   : msg.type === 'error'
                   ? 'bg-red-50 text-red-800 border border-red-200'
                   : 'bg-gray-100 text-gray-900'
@@ -191,22 +193,22 @@ export const OperatorChat = ({ jobId, onCommand }: OperatorChatProps) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Enter command..."
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
             disabled={isProcessing}
           />
-          <button
+          <ShimmerButton
             type="submit"
             disabled={isProcessing || !input.trim()}
-            className="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="!px-4 !py-2"
           >
             <Send className="w-5 h-5" />
-          </button>
+          </ShimmerButton>
         </div>
         <p className="text-xs text-gray-500 mt-2">
           <AlertCircle className="w-3 h-3 inline mr-1" />
           Only allowlisted commands are accepted. Free-form input is not allowed.
         </p>
       </form>
-    </div>
+    </Card>
   );
 };

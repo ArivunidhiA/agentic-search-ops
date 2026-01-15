@@ -7,6 +7,8 @@ import { LoadingSpinner } from '../common/LoadingSpinner';
 import { validateJobConfig } from '../../utils/validators';
 import { JobType } from '../../types';
 import { useNavigate } from 'react-router-dom';
+import { Card } from '../ui/card';
+import { ShimmerButton } from '../ui/shimmer-button';
 
 export const JobLauncher = () => {
   const navigate = useNavigate();
@@ -91,7 +93,7 @@ export const JobLauncher = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <Card showBorderTrail>
       <h2 className="text-xl font-semibold text-gray-900 mb-6">Launch New Job</h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -237,40 +239,40 @@ export const JobLauncher = () => {
         </div>
 
         <div className="flex gap-4 pt-4">
-          <button
+          <ShimmerButton
             type="submit"
             disabled={createJobMutation.isLoading}
-            className="flex items-center gap-2 px-6 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            variant="primary"
           >
             {createJobMutation.isLoading ? (
               <>
                 <LoadingSpinner size="sm" />
-                Starting...
+                <span className="ml-2">Starting...</span>
               </>
             ) : (
               <>
-                <Play className="w-5 h-5" />
+                <Play className="w-5 h-5 mr-2" />
                 Start Job
               </>
             )}
-          </button>
-          <button
+          </ShimmerButton>
+          <ShimmerButton
             type="button"
             onClick={handleDryRun}
-            className="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+            variant="secondary"
           >
             Dry Run
-          </button>
-          <button
+          </ShimmerButton>
+          <ShimmerButton
             type="button"
             onClick={handleSaveTemplate}
-            className="flex items-center gap-2 px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+            variant="secondary"
           >
-            <Save className="w-5 h-5" />
+            <Save className="w-5 h-5 mr-2" />
             Save as Template
-          </button>
+          </ShimmerButton>
         </div>
       </form>
-    </div>
+    </Card>
   );
 };

@@ -1,0 +1,63 @@
+# ==============================================================================
+# TERRAFORM VARIABLES - COPY TO terraform.tfvars AND CUSTOMIZE
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# REQUIRED - Must be configured
+# ------------------------------------------------------------------------------
+
+# Unique prefix for all resource names (lowercase, alphanumeric, hyphens only)
+# Example: "johndoe" or "mycompany-dev"
+project_prefix = "yourusername"
+
+# Name of existing EC2 key pair in AWS for SSH access
+# Create one at: https://console.aws.amazon.com/ec2/v2/home#KeyPairs:
+ec2_key_pair_name = "your-key-pair-name"
+
+# Your IP address for SSH access (get it: curl https://checkip.amazonaws.com)
+# Format: "YOUR_IP/32" for single IP, or "0.0.0.0/0" for any (less secure)
+allowed_ssh_cidr = "YOUR_IP/32"
+
+# ------------------------------------------------------------------------------
+# OPTIONAL - Defaults are Free Tier eligible
+# ------------------------------------------------------------------------------
+
+# AWS region (us-east-1 has most services)
+aws_region = "us-east-1"
+
+# Environment name
+environment = "production"
+
+# EC2 instance type (t2.micro = Free Tier)
+ec2_instance_type = "t2.micro"
+
+# EC2 root volume size in GB
+ec2_root_volume_size = 20
+
+# RDS instance class (db.t3.micro = Free Tier)
+rds_instance_class = "db.t3.micro"
+
+# RDS storage in GB (20 GB = Free Tier max)
+rds_allocated_storage = 20
+
+# PostgreSQL version
+rds_engine_version = "15.4"
+
+# Days to retain RDS backups
+rds_backup_retention_period = 7
+
+# ------------------------------------------------------------------------------
+# APPLICATION CONFIG (optional)
+# ------------------------------------------------------------------------------
+
+# Anthropic API key (can also be set in EC2 .env file)
+# anthropic_api_key = "sk-ant-api03-xxx"
+
+# Maximum cost per agent job in USD
+max_job_cost_usd = 5.0
+
+# Additional tags for all resources
+# additional_tags = {
+#   Owner = "your-email@example.com"
+#   Team  = "engineering"
+# }

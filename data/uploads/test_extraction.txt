@@ -1,0 +1,20 @@
+# Document Extraction Test
+
+This is a test document for verifying the document extraction capabilities.
+
+## Features Implemented
+
+1. **PDF Extraction**: Using pdfplumber for text extraction
+2. **DOCX Extraction**: Using python-docx for Word document extraction
+3. **Vector Embeddings**: Using sentence-transformers for semantic search
+4. **Semantic Search**: Cosine similarity-based search
+
+## Technical Details
+
+The system supports:
+- Multi-page PDF documents (up to 100 pages)
+- DOCX files with tables and complex formatting
+- Batch embedding generation
+- Async processing with timeout protection
+
+This document can be used to test the keyword search functionality.

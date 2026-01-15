@@ -8,7 +8,7 @@ import {
   createJob,
   controlJob,
 } from '../api/client';
-import type { Job, JobDetail, JobEvent, JobConfig } from '../types';
+import type { Job } from '../types';
 import { JobStatus } from '../types';
 
 export const useJobs = (skip: number = 0, limit: number = 50, status?: string) => {
@@ -48,10 +48,7 @@ export const useJobEvents = (jobId: string, skip: number = 0, limit: number = 10
     {
       staleTime: 5000,
       refetchInterval: (data) => {
-        // Poll every 5 seconds if job is running
-        const job = data?.job_id;
-        // We need to check job status, but we don't have it here
-        // For now, always poll if we have events
+        // Poll every 5 seconds if we have events
         return data?.events && data.events.length > 0 ? 5000 : false;
       },
     }

@@ -8,6 +8,8 @@ import { StatusBadge } from '../components/common/StatusBadge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 import { formatDate } from '../utils/formatters';
 import { useState } from 'react';
+import { ShimmerButton } from '../components/ui/shimmer-button';
+import { Card } from '../components/ui/card';
 
 export const Jobs = () => {
   const [showLauncher, setShowLauncher] = useState(false);
@@ -23,9 +25,9 @@ export const Jobs = () => {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-600">
+      <Card className="bg-red-50 border border-red-200 text-red-600">
         Failed to load jobs. Please try again.
-      </div>
+      </Card>
     );
   }
 
@@ -35,18 +37,18 @@ export const Jobs = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-gray-900">Jobs</h1>
-        <button
+        <ShimmerButton
           onClick={() => setShowLauncher(!showLauncher)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors"
+          className="flex items-center gap-2"
         >
           <Plus className="w-5 h-5" />
           {showLauncher ? 'Hide' : 'New Job'}
-        </button>
+        </ShimmerButton>
       </div>
 
       {showLauncher && <JobLauncher />}
 
-      <div className="bg-white rounded-lg shadow overflow-hidden">
+      <Card showBorderTrail noPadding className="overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200">
           <h2 className="text-lg font-semibold text-gray-900">Job List</h2>
         </div>
@@ -100,7 +102,7 @@ export const Jobs = () => {
             </table>
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 };

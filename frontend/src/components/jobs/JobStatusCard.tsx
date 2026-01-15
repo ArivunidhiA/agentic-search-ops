@@ -5,6 +5,7 @@ import { JobDetail } from '../../types';
 import { StatusBadge } from '../common/StatusBadge';
 import { formatRelativeTime, formatDuration } from '../../utils/formatters';
 import { JobStatus } from '../../types';
+import { Card } from '../ui/card';
 
 interface JobStatusCardProps {
   job: JobDetail;
@@ -34,7 +35,7 @@ export const JobStatusCard = ({ job }: JobStatusCardProps) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <Card showBorderTrail>
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           {getStatusIcon()}
@@ -85,6 +86,6 @@ export const JobStatusCard = ({ job }: JobStatusCardProps) => {
           <p className="text-sm text-red-600">{job.error_message}</p>
         </div>
       )}
-    </div>
+    </Card>
   );
 };

@@ -3,6 +3,7 @@
 import { useState, ReactNode } from 'react';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
+import { Background } from '../ui/background';
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,7 +13,7 @@ export const Layout = ({ children }: LayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <Background>
       <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
       <div className="flex">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -20,6 +21,6 @@ export const Layout = ({ children }: LayoutProps) => {
           {children}
         </main>
       </div>
-    </div>
+    </Background>
   );
 };

@@ -1,8 +1,6 @@
 /** Metrics charts component using Recharts */
 
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   XAxis,
@@ -13,6 +11,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { Metrics } from '../../types';
+import { Card } from '../ui/card';
 
 interface MetricsChartsProps {
   metrics: Metrics;
@@ -27,7 +26,7 @@ export const MetricsCharts = ({ metrics }: MetricsChartsProps) => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div className="bg-white rounded-lg shadow p-6">
+      <Card showBorderTrail>
         <h4 className="text-md font-semibold text-gray-900 mb-4">Jobs by Status</h4>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={jobsByStatusData}>
@@ -36,12 +35,12 @@ export const MetricsCharts = ({ metrics }: MetricsChartsProps) => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="count" fill="#0ea5e9" />
+            <Bar dataKey="count" fill="#eab308" />
           </BarChart>
         </ResponsiveContainer>
-      </div>
+      </Card>
 
-      <div className="bg-white rounded-lg shadow p-6">
+      <Card showBorderTrail>
         <h4 className="text-md font-semibold text-gray-900 mb-4">Recent Activity</h4>
         <div className="space-y-2">
           {metrics.recent_activity.slice(0, 10).map((activity) => (
@@ -53,7 +52,7 @@ export const MetricsCharts = ({ metrics }: MetricsChartsProps) => {
             </div>
           ))}
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

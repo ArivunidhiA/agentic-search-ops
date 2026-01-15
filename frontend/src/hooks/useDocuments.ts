@@ -2,7 +2,6 @@
 
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getDocuments, getDocument, deleteDocument, uploadDocument } from '../api/client';
-import type { Document, DocumentDetail } from '../types';
 
 export const useDocuments = (skip: number = 0, limit: number = 50, status?: string) => {
   return useQuery(

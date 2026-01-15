@@ -468,12 +468,28 @@ async def create_demo_documents(db: AsyncSession):
     """Create demo documents and chunks."""
     print("Creating demo documents...")
     
+    # Check existing documents and skip if already exist
+    from sqlalchemy import select
+    existing_result = await db.execute(select(Document))
+    existing_docs = existing_result.scalars().all()
+    existing_filenames = {doc.filename for doc in existing_docs}
+    
+    created_count = 0
+    skipped_count = 0
+    
     for doc_data in DEMO_DOCUMENTS:
-        # Create document
+        # Skip if document already exists
+        if doc_data["filename"] in existing_filenames:
+            print(f"  ⊘ Skipping {doc_data['filename']} (already exists)")
+            skipped_count += 1
+            continue
+            
+        # Create document with unique s3_key using document ID
+        doc_id = str(uuid4())
         document = Document(
-            id=str(uuid4()),
+            id=doc_id,
             filename=doc_data["filename"],
-            s3_key=f"documents/{doc_data['filename']}",
+            s3_key=f"documents/{doc_id}/{doc_data['filename']}",
             upload_timestamp=datetime.utcnow(),
             file_size=doc_data["file_size"],
             content_type="text/plain",
@@ -497,9 +513,10 @@ async def create_demo_documents(db: AsyncSession):
             db.add(chunk)
         
         print(f"  ✓ Created {doc_data['filename']} with {len(chunks)} chunks")
+        created_count += 1
     
     await db.commit()
-    print(f"✓ Created {len(DEMO_DOCUMENTS)} documents")
+    print(f"✓ Created {created_count} new documents, skipped {skipped_count} existing")
 
 
 async def create_demo_jobs(db: AsyncSession):
